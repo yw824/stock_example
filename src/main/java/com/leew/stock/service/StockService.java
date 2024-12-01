@@ -26,8 +26,5 @@ public class StockService {
 
         // 갱신된 값을 저장
         stockRepository.save(stock);
-
     }
-
-
 }
