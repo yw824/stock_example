@@ -23,6 +23,9 @@ public class StockServiceTest {
     @Autowired
     private StockRepository stockRepository;
 
+    @Autowired
+    private PessimisticLockStockService pessimisticStockService;
+
     // 테스트를 위해 모의 재고량이 있어야 하므로 테스트 수행 전에 생성한다.
     @BeforeEach
     public void before() {
@@ -61,7 +64,7 @@ public class StockServiceTest {
         for (int i = 0; i < threadCount; ++i) {
             executorService.submit(() -> {
                 try {
-                    stockService.decrease(1L, 1L);
+                    pessimisticStockService.decrease(1L, 1L);
                 } finally {
                     latch.countDown();
                 }
